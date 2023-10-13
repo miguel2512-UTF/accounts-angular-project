@@ -1,13 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomePageComponent } from './pages/home-page/home-page.component';
+import { LoanIconComponent } from './loan-icon.component';
+
+
 
 @NgModule({
   declarations: [
-    HomePageComponent
+    LoanIconComponent
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    LoanIconComponent
   ]
 })
-export class HomeModule { }
+export class LoanIconModule { }
