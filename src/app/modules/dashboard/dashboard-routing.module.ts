@@ -4,10 +4,13 @@ import { HomePageComponent } from "@modules/home/pages/home-page/home-page.compo
 
 const routes: Routes = [
     {
-        path: '',
+        path: 'home',
         component: HomePageComponent
     },
-    { path: 'user', loadChildren: () => import("@modules/user/user.module").then(m => m.UserModule) }
+    { 
+        path: 'user', 
+        loadChildren: () => import("@modules/user/user.module").then(m => m.UserModule)
+    }
 ];
 
 @NgModule({

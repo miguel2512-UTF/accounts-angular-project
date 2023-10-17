@@ -11,15 +11,21 @@
             </a>
         </li>
         <li>
-            <a [routerLink]="['/home/user']" class="p-2 flex items-center cursor-pointer hover:bg-slate-100 mb-1 rounded-lg transition-colors">
+            <a [routerLink]="['/user']" class="p-2 flex items-center cursor-pointer hover:bg-slate-100 mb-1 rounded-lg transition-colors">
                 <user-icon [size]="28" class="mr-3"></user-icon>
                 User
             </a>
         </li>
         <li>
-            <a [routerLink]="['/home/loan']" routerLinkActive="router-link-active"  class="p-2 flex items-center cursor-pointer hover:bg-slate-100 mb-1 rounded-lg transition-colors">
+            <a [routerLink]="['/loan']" routerLinkActive="router-link-active"  class="p-2 flex items-center cursor-pointer hover:bg-slate-100 mb-1 rounded-lg transition-colors">
                 <loan-icon [size]="28" class="mr-3"></loan-icon>
                 Loan
+            </a>
+        </li>
+        <li>
+            <a (click)="logout()" routerLinkActive="router-link-active"  class="p-2 flex items-center cursor-pointer hover:bg-slate-100 mb-1 rounded-lg transition-colors">
+                <logout-icon [size]="28" class="mr-3"></logout-icon>
+                Log Out
             </a>
         </li>
     </ul>

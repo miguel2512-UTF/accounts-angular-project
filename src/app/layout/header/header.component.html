@@ -3,8 +3,8 @@
     <div class="flex items-center justify-center gap-2">
         <user-icon class="my-auto" color="black" [size]="40"></user-icon>
         <div class="flex flex-col">
-            <span class="text-base">User</span>
-            <span class="text-xs">Role</span>
+            <span class="text-base">{{ userSession.email }}</span>
+            <span class="text-xs">{{ userSession.role }}</span>
         </div>
     </div>
 </header>

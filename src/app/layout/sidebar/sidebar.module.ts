@@ -5,6 +5,7 @@ import { HomeIconModule } from '@shared/components/home-icon/home-icon.module';
 import { UserIconModule } from '@shared/components/user-icon/user-icon.module';
 import { LoanIconModule } from '@shared/components/loan-icon/loan-icon.module';
 import { RouterModule } from '@angular/router';
+import { LogoutIconModule } from '@shared/components/logout-icon/logout-icon.module';
 
 
 
@@ -17,6 +18,7 @@ import { RouterModule } from '@angular/router';
     HomeIconModule,
     UserIconModule,
     LoanIconModule,
+    LogoutIconModule,
     RouterModule
   ],
   exports: [

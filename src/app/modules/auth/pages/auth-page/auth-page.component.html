@@ -1,0 +1,18 @@
+<section class="grid h-screen place-content-center">
+    <h2 class="text-4xl font-bold text-center">Auth</h2>
+    <form (ngSubmit)="login(authForm)" class="w-80" #authForm="ngForm">
+        <div class="flex flex-col my-4">
+            <label class="cursor-pointer" for="email">Email</label>
+            <input class="p-2" type="text" name="email" id="email" #email="ngModel" [(ngModel)]="loginForm.email" email required>
+            <p *ngIf="email.errors?.['required'] && email.touched" class="text-red-500">Email is required</p>
+            <p *ngIf="email.errors?.['email'] && email.touched" class="text-red-500">Email must be like: example@gmail.com</p>
+        </div>
+        <div class="flex flex-col my-4">
+            <label class="cursor-pointer" for="password">Password</label>
+            <input class="p-2" type="password" name="password" id="password" #password="ngModel" [(ngModel)]="loginForm.password" required>
+            <p *ngIf="!password.valid && password.touched" class="text-red-500">Password is required</p>
+        </div>
+        <p class="text-red-500 my-2" *ngIf="isAuthError">{{ errorMessage }}</p>
+        <button (click)="login(authForm)" class="bg-[rgb(31,31,31)] text-white p-2 w-full" type="submit">Log in</button>
+    </form>
+</section>
