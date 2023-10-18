@@ -22,6 +22,12 @@ export class AuthPageComponent {
     password: ""
   }
 
+  ngOnInit() {
+    if (this.authService.isAuthenticated()) {
+      this.route.navigate(["/", "home"])
+    }
+  }
+
   login(form: NgForm) {
     if (!form.valid) {
       form.control.markAllAsTouched()

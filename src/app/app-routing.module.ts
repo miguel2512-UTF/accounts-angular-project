@@ -4,6 +4,11 @@ import { authGuard } from '@core/guards/auth.guard';
 import { DashboardPageComponent } from '@modules/dashboard/dashboard-page/dashboard-page.component';
 
 const routes: Routes = [
+  {
+    path: "",
+    redirectTo: "auth",
+    pathMatch: "full"
+  },
   { 
     path: "auth", 
     loadChildren: () => import("@modules/auth/auth.module").then(m => m.AuthModule) 
