@@ -1,8 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable, map } from 'rxjs';
-import User from 'src/app/data/models/user.model';
 import { environment } from 'src/environment/environment';
 
 @Injectable({
@@ -19,14 +17,22 @@ export class AuthService {
     return this.http.post<{ success: boolean, body: { message?: string, auth_token?: string } }>(`${this.API_URL}/login`, { email, password })
   }
 
-  getSession(): User {
+  isTokenExpired() {
+    const { exp } = this.getSession()
+    const expirationDate = new Date(parseInt(exp + "000"))
+    const currentDate = new Date()
+
+    return currentDate > expirationDate
+  }
+
+  getSession() {
     const token = this.cookieService.get(environment.TOKEN_COOKIE_NAME)
-    
+
     return this.parseJwt(token)
   }
 
   isAuthenticated(): boolean {
-    return this.cookieService.check(environment.TOKEN_COOKIE_NAME)
+    return this.cookieService.check(environment.TOKEN_COOKIE_NAME) && !this.isTokenExpired()
   }
 
   deleteToken() {
