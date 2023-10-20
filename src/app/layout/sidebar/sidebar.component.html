@@ -6,25 +6,25 @@
     <ul class="flex flex-col">
         <li>
             <a [routerLink]="['/','home']" routerLinkActive="router-link-active"  class="p-2 flex items-center cursor-pointer hover:bg-slate-100 mb-1 rounded-lg transition-colors">
-                <home-icon [size]="28" class="mr-3"></home-icon>
+                <home-icon [size]="28" class="mr-3" />
                 Home
             </a>
         </li>
         <li>
             <a [routerLink]="['/user']" class="p-2 flex items-center cursor-pointer hover:bg-slate-100 mb-1 rounded-lg transition-colors">
-                <user-icon [size]="28" class="mr-3"></user-icon>
+                <user-icon [size]="28" class="mr-3" />
                 User
             </a>
         </li>
         <li>
             <a [routerLink]="['/loan']" routerLinkActive="router-link-active"  class="p-2 flex items-center cursor-pointer hover:bg-slate-100 mb-1 rounded-lg transition-colors">
-                <loan-icon [size]="28" class="mr-3"></loan-icon>
+                <loan-icon [size]="28" class="mr-3" />
                 Loan
             </a>
         </li>
         <li>
             <a (click)="logout()" routerLinkActive="router-link-active"  class="p-2 flex items-center cursor-pointer hover:bg-slate-100 mb-1 rounded-lg transition-colors">
-                <logout-icon [size]="28" class="mr-3"></logout-icon>
+                <logout-icon [size]="28" class="mr-3" />
                 Log Out
             </a>
         </li>
