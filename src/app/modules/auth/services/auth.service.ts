@@ -35,6 +35,12 @@ export class AuthService {
     return this.cookieService.check(environment.TOKEN_COOKIE_NAME) && !this.isTokenExpired()
   }
 
+  hasPermission(): boolean {
+    const { role } = this.getSession()
+
+    return role == "administrator"
+  }
+
   deleteToken() {
     this.cookieService.delete(environment.TOKEN_COOKIE_NAME)
   }

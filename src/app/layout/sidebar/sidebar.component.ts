@@ -10,6 +10,10 @@ export class SidebarComponent {
   private readonly authService = inject(AuthService)
   private readonly router = inject(Router)
 
+  hasPermission() {
+    return this.authService.hasPermission()
+  }
+
   logout() {
     this.authService.deleteToken()
     this.router.navigate(["/auth"])
