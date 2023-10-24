@@ -1,1 +1,1 @@
-<h1 class="text-3xl font-bold">{{ getGreeting() }}, {{ userSession.email }}!</h1>
+<h1 *ngIf="userSession" class="text-3xl font-bold">{{ getGreeting() }}, {{ userSession.email }}!</h1>

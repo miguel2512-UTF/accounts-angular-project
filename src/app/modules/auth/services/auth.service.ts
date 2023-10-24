@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import { map } from 'rxjs';
+import User from 'src/app/data/models/user.model';
 import { environment } from 'src/environment/environment';
 
 @Injectable({
@@ -18,16 +20,19 @@ export class AuthService {
   }
 
   isTokenExpired() {
-    const { exp } = this.getSession()
+    const { exp } = this.parseJwt(this.getToken())
     const expirationDate = new Date(parseInt(exp + "000"))
     const currentDate = new Date()
 
     return currentDate > expirationDate
   }
 
-  getSession() {
-    const token = this.cookieService.get(environment.TOKEN_COOKIE_NAME)
+  getToken() {
+    return this.cookieService.get(environment.TOKEN_COOKIE_NAME)
+  }
 
+  getSession() {
+    const token = this.getToken()
     return this.parseJwt(token)
   }
 
