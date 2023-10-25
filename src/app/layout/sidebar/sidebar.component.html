@@ -11,7 +11,7 @@
             </a>
         </li>
         <li>
-            <a *ngIf="hasPermission()" [routerLink]="['/user']" class="p-2 flex items-center cursor-pointer hover:bg-slate-100 mb-1 rounded-lg transition-colors">
+            <a *ngIf="hasPermission | async" [routerLink]="['/user']" class="p-2 flex items-center cursor-pointer hover:bg-slate-100 mb-1 rounded-lg transition-colors">
                 <user-icon [size]="28" class="mr-3" />
                 User
             </a>

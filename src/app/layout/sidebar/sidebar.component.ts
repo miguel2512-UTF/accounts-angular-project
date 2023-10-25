@@ -9,13 +9,11 @@ import { AuthService } from '@modules/auth/services/auth.service';
 export class SidebarComponent {
   private readonly authService = inject(AuthService)
   private readonly router = inject(Router)
-
-  hasPermission() {
-    return this.authService.hasPermission()
-  }
+  hasPermission = this.authService.hasPermission()
 
   logout() {
     this.authService.deleteToken()
+    localStorage.removeItem("session")
     this.router.navigate(["/auth"])
   }
 }

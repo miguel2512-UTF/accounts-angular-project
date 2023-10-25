@@ -8,15 +8,5 @@ import User from 'src/app/data/models/user.model';
 })
 export class HeaderComponent {
   private authService = inject(AuthService)
-  userSession: User = {
-    id: 0,
-    email: '',
-    isActive: false,
-    loans: [],
-    role: ''
-  }
-
-  ngOnInit() {
-    this.userSession = this.authService.getSession()
-  }
+  currentUser = this.authService.currentUser$
 }

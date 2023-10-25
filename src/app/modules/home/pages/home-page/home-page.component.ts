@@ -9,7 +9,7 @@ import User from 'src/app/data/models/user.model';
 })
 export class HomePageComponent {
   private authService = inject(AuthService)
-  userSession: User = this.authService.getSession()
+  currentUser = this.authService.currentUser$
 
   getGreeting() {
     const currentHour = new Date().getHours()

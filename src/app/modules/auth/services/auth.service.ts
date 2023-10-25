@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { map } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 import User from 'src/app/data/models/user.model';
 import { environment } from 'src/environment/environment';
 
@@ -12,8 +12,21 @@ export class AuthService {
   private readonly API_URL = environment.API_BACKEND_URL
   private readonly http = inject(HttpClient)
   private readonly cookieService = inject(CookieService)
+  private currentUser = new BehaviorSubject<User>(this.getSession());
 
   constructor() { }
+
+  get currentUser$() {
+    return this.currentUser.asObservable()
+  }
+
+  updateUserSession() {
+    this.http.get<{success: boolean, body: { data: User }}>(`${this.API_URL}/me`).subscribe(res => {
+      const { email, role } = res.body.data
+      localStorage.setItem("session", JSON.stringify({ email, role }))
+      this.currentUser.next(res.body.data)
+    })
+  }
 
   authenticate(email: string, password: string) {
     return this.http.post<{ success: boolean, body: { message?: string, auth_token?: string } }>(`${this.API_URL}/login`, { email, password })
@@ -32,6 +45,10 @@ export class AuthService {
   }
 
   getSession() {
+    const session = localStorage.getItem("session")
+    if (session) {
+      return JSON.parse(session)
+    }
     const token = this.getToken()
     return this.parseJwt(token)
   }
@@ -40,10 +57,13 @@ export class AuthService {
     return this.cookieService.check(environment.TOKEN_COOKIE_NAME) && !this.isTokenExpired()
   }
 
-  hasPermission(): boolean {
-    const { role } = this.getSession()
-
-    return role == "administrator"
+  hasPermission() {
+    return this.currentUser$.pipe(
+      map(user => {
+        const { role } = user
+        return role === "administrator"
+      })
+    )
   }
 
   deleteToken() {

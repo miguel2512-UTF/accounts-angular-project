@@ -14,11 +14,7 @@ export class UserService {
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
   getUsers(): Observable<User[]> {
-    return this.http.get<{success: boolean, body: {data: User[]}}>(`${this.API_URL}/user/`, {
-      headers: {
-        Authorization: `Bearer ${this.cookieService.get(environment.TOKEN_COOKIE_NAME)}`
-      }
-    }).pipe(
+    return this.http.get<{success: boolean, body: {data: User[]}}>(`${this.API_URL}/user/`).pipe(
       map(({body}) => body.data)
     )
   }

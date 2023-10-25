@@ -2,9 +2,9 @@
     <menu-icon class="cursor-pointer" color="black" [size]="28" />
     <div class="flex items-center justify-center gap-2">
         <user-icon class="my-auto" color="black" [size]="40" />
-        <div class="flex flex-col">
-            <span class="text-base">{{ userSession.email }}</span>
-            <span class="text-xs">{{ userSession.role }}</span>
+        <div class="flex flex-col" *ngIf="(currentUser | async) as user">
+            <span class="text-base">{{ user.email }}</span>
+            <span class="text-xs">{{ user.role }}</span>
         </div>
     </div>
 </header>

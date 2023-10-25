@@ -42,6 +42,7 @@ export class AuthPageComponent {
         this.cookieService.set(environment.TOKEN_COOKIE_NAME, token, {
           path: '/'
         })
+        this.authService.updateUserSession()
         this.route.navigate(["/", "home"])
       },
       ({ error }) => {
