@@ -1,13 +1,10 @@
-import { HttpErrorResponse, HttpEvent, HttpInterceptorFn, HttpResponse } from '@angular/common/http';
+import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from '@modules/auth/services/auth.service';
-import { catchError, finalize, map, tap } from 'rxjs';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  console.log("Inside the interceptor function");
+  console.log("Inside the interceptor function", req.url, req.method);
   
-  const router = inject(Router)
   const authService = inject(AuthService)
 
   const newRequest = req.clone({
@@ -16,13 +13,5 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     }
   })
 
-  return next(newRequest).pipe(
-    catchError((error: HttpErrorResponse) => {
-      if (error.status == 401) {
-        authService.updateUserSession()
-        router.navigate(["/", "error", "401"])
-      }
-      throw error
-    })
-  );
+  return next(newRequest)
 };

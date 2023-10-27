@@ -20,13 +20,17 @@ export class AuthService {
     return this.currentUser.asObservable()
   }
 
-  updateUserSession() {
-    this.http.get<{success: boolean, body: { data: User }}>(`${this.API_URL}/me`).subscribe(res => {
-      const { email, role } = res.body.data
-      localStorage.setItem("session", JSON.stringify({ email, role }))
-      this.currentUser.next(res.body.data)
-    })
+  updateUser(user: User) {
+    this.currentUser.next(user)
   }
+
+  // updateUserSession() {
+  //   this.http.get<{success: boolean, body: { data: User }}>(`${this.API_URL}/me`).subscribe(res => {
+  //     const { email, role } = res.body.data
+  //     localStorage.setItem("session", JSON.stringify({ email, role }))
+  //     this.currentUser.next(res.body.data)
+  //   })
+  // }
 
   authenticate(email: string, password: string) {
     return this.http.post<{ success: boolean, body: { message?: string, auth_token?: string } }>(`${this.API_URL}/login`, { email, password })

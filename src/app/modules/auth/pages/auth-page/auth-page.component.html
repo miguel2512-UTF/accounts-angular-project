@@ -13,6 +13,6 @@
             <p *ngIf="!password.valid && password.touched" class="text-red-500">Password is required</p>
         </div>
         <p class="text-red-500 my-2" *ngIf="isAuthError">{{ errorMessage }}</p>
-        <button (click)="login(authForm)" class="bg-[rgb(31,31,31)] text-white p-2 w-full" type="submit">Log in</button>
+        <button class="bg-[rgb(31,31,31)] text-white p-2 w-full" type="submit">Log in</button>
     </form>
 </section>
