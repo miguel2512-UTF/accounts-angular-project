@@ -20,17 +20,15 @@ export class AuthService {
     return this.currentUser.asObservable()
   }
 
-  updateUser(user: User) {
+  updateUser(user?: User) {
+    if (!user) {
+      this.http.get<{ body: { data: User } }>(`${this.API_URL}/me`).subscribe((res) => {
+        this.currentUser.next(res.body.data);
+      })
+      return
+    }
     this.currentUser.next(user)
   }
-
-  // updateUserSession() {
-  //   this.http.get<{success: boolean, body: { data: User }}>(`${this.API_URL}/me`).subscribe(res => {
-  //     const { email, role } = res.body.data
-  //     localStorage.setItem("session", JSON.stringify({ email, role }))
-  //     this.currentUser.next(res.body.data)
-  //   })
-  // }
 
   authenticate(email: string, password: string) {
     return this.http.post<{ success: boolean, body: { message?: string, auth_token?: string } }>(`${this.API_URL}/login`, { email, password })
@@ -49,10 +47,6 @@ export class AuthService {
   }
 
   getSession() {
-    const session = localStorage.getItem("session")
-    if (session) {
-      return JSON.parse(session)
-    }
     const token = this.getToken()
     return this.parseJwt(token)
   }

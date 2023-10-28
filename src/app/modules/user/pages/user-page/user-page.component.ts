@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '@modules/auth/services/auth.service';
 import { UserService } from '@modules/user/services/user.service';
 import { catchError, of, tap } from 'rxjs';
 import User from 'src/app/data/models/user.model';
@@ -18,7 +19,7 @@ export class UserPageComponent {
     return userJson[field]
   }
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private authService: AuthService) { }
 
   ngOnInit() {
     this.userService.getUsers().pipe(
@@ -26,6 +27,8 @@ export class UserPageComponent {
       catchError((err) => {    
         this.error.status = err.status    
         this.error.message = err.error.body.message;
+
+        this.authService.updateUser()
         
         return of([])
       })

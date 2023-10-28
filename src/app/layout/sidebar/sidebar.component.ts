@@ -13,7 +13,6 @@ export class SidebarComponent {
 
   logout() {
     this.authService.deleteToken()
-    localStorage.removeItem("session")
     this.router.navigate(["/auth"])
   }
 }
