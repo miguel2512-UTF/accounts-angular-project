@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, map, tap } from 'rxjs';
 import User from 'src/app/data/models/user.model';
 import { environment } from 'src/environment/environment';
 
@@ -59,6 +60,18 @@ export class AuthService {
     return this.currentUser$.pipe(
       map(user => {
         const { role } = user
+        return role === "administrator"
+      })
+    )
+  }
+
+  hasPerm(route: ActivatedRoute) {  
+    return route.data.pipe(
+      map(data => {
+        console.log(data);     
+        console.log(data["user"]);
+        
+        const { role } = data["user"]
         return role === "administrator"
       })
     )
