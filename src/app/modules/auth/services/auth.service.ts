@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { BehaviorSubject, map, tap } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 import User from 'src/app/data/models/user.model';
 import { environment } from 'src/environment/environment';
 
@@ -24,10 +24,20 @@ export class AuthService {
   updateUser(user?: User) {
     if (!user) {
       this.http.get<{ body: { data: User } }>(`${this.API_URL}/me`).subscribe((res) => {
-        this.currentUser.next(res.body.data);
+        const user = res.body.data
+        this.currentUser.next(user);
+        sessionStorage.setItem("session", JSON.stringify({
+          email: user.email,
+          role: user.role
+        }))
       })
       return
     }
+
+    sessionStorage.setItem("session", JSON.stringify({
+      email: user.email,
+      role: user.role
+    }))
     this.currentUser.next(user)
   }
 
@@ -48,8 +58,13 @@ export class AuthService {
   }
 
   getSession() {
-    const token = this.getToken()
-    return this.parseJwt(token)
+    const session = sessionStorage.getItem("session")
+
+    if (!session) return { role: "default" }
+
+    const user = JSON.parse(session)
+    
+    return user
   }
 
   isAuthenticated(): boolean {
