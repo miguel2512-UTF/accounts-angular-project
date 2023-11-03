@@ -1,0 +1,22 @@
+<h2 class="font-bold text-3xl capitalize">loan</h2>
+
+<table class="w-full border-spacing-y-2 table border-separate">
+    <thead>
+        <tr class="bg-slate-100">
+            <td class="font-bold py-3 px-4 first:rounded-l-md last:rounded-r-md capitalize">debtor name</td>
+            <td class="font-bold py-3 px-4 first:rounded-l-md last:rounded-r-md capitalize">loan value</td>
+            <td class="font-bold py-3 px-4 first:rounded-l-md last:rounded-r-md capitalize">debt value</td>
+            <td class="font-bold py-3 px-4 first:rounded-l-md last:rounded-r-md capitalize">loan date</td>
+            <td class="font-bold py-3 px-4 first:rounded-l-md last:rounded-r-md capitalize">is payment</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let loan of loans | async" class="bg-slate-100 my-2">
+            <td class="py-3 px-4 first:rounded-l-md last:rounded-r-md capitalize">{{ loan.debtorName }}</td>
+            <td class="py-3 px-4 first:rounded-l-md last:rounded-r-md">{{ loan.loanValue }}</td>
+            <td class="py-3 px-4 first:rounded-l-md last:rounded-r-md">{{ loan.debtValue }}</td>
+            <td class="py-3 px-4 first:rounded-l-md last:rounded-r-md">{{ loan.loanDate }}</td>
+            <td class="py-3 px-4 first:rounded-l-md last:rounded-r-md">{{ loan.isPayment }}</td>
+        </tr>
+    </tbody>
+</table>
